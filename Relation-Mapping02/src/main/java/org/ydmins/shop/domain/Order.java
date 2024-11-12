@@ -17,6 +17,10 @@ public class Order {
 
     private LocalDateTime orderDate;
 
+    @OneToOne
+    @JoinColumn(name = "DELIVERY_ID")
+    private Delivery delivery;
+
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
