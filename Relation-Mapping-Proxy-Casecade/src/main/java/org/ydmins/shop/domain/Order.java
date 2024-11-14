@@ -2,6 +2,8 @@ package org.ydmins.shop.domain;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "ORDERS")
@@ -17,9 +19,12 @@ public class Order extends BaseEntity{
 
     private LocalDateTime orderDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JoinColumn(name = "DELIVERY_ID")
     private Delivery delivery;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> oderItems = new ArrayList<>();
 
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
