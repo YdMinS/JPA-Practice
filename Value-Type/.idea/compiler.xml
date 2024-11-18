@@ -6,13 +6,14 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="Relation-Mapping03" />
+        <module name="Value-Type" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="Entity-Mapping" target="17" />
       <module name="Relation-Mapping01" target="17" />
       <module name="Relation-Mapping02" target="17" />
+      <module name="Relation-Mapping03" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
