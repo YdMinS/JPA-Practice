@@ -1,5 +1,6 @@
 package com.ydmins.JPA_SHOP;
 
+import com.ydmins.JPA_SHOP.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import org.springframework.stereotype.Repository;
