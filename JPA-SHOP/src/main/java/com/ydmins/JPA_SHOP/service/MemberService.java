@@ -2,6 +2,7 @@ package com.ydmins.JPA_SHOP.service;
 
 import com.ydmins.JPA_SHOP.domain.Member;
 import com.ydmins.JPA_SHOP.repository.MemberRepository;
+import jakarta.persistence.PersistenceContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
