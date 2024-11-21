@@ -3,15 +3,19 @@ package com.ydmins.JPA_SHOP.repository;
 import com.ydmins.JPA_SHOP.domain.Member;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
+@RequiredArgsConstructor
 public class MemberRepository {
 
-    @PersistenceContext
-    private EntityManager em;
+//    @PersistenceContext
+//    private EntityManager em;
+
+    private final EntityManager em;
 
     public void save(Member member){
         em.persist(member);
