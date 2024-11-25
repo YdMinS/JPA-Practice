@@ -1,5 +1,6 @@
 package com.ydmins.JPA_SHOP.service;
 
+import com.ydmins.JPA_SHOP.domain.item.Book;
 import com.ydmins.JPA_SHOP.domain.item.Item;
 import com.ydmins.JPA_SHOP.repository.ItemRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,14 @@ public class ItemService {
     @Transactional
     public void saveItem(Item item){
         itemRepository.save(item);
+    }
+
+    @Transactional
+    public void updateItem(Long itemId, String name, int price, int stockQuantity){
+        Item findItem = itemRepository.findOne(itemId);
+        findItem.setName(name);
+        findItem.setPrice(price);
+        findItem.setStockQuantity(stockQuantity);
     }
 
     public List<Item> findItems(){
