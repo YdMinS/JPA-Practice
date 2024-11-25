@@ -1,10 +1,13 @@
 package com.ydmins.JPA_SHOP.domain.item;
 
 import jakarta.persistence.DiscriminatorColumn;
+import jakarta.persistence.DiscriminatorValue;
+import jakarta.persistence.Entity;
 import lombok.Getter;
 import lombok.Setter;
 
-@DiscriminatorColumn(name = "A")
+@Entity
+@DiscriminatorValue("A")
 @Getter
 @Setter
 public class Album extends Item {
