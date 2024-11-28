@@ -8,10 +8,15 @@ import com.ydmins.JPA_SHOP.domain.item.Item;
 import com.ydmins.JPA_SHOP.repository.ItemRepository;
 import com.ydmins.JPA_SHOP.repository.MemberRepository;
 import com.ydmins.JPA_SHOP.repository.OrderRepository;
+import com.ydmins.JPA_SHOP.repository.OrderSearch;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -57,7 +62,7 @@ public class OrderService {
     /*
      * Order Search
      */
-//    public List<Order> findOrders(OrderSearch orderSearch){
-//        return orderRepository.findAll(orderSearch);
-//    }
+    public List<Order> findAll(OrderSearch orderSearch) {
+        return orderRepository.findAllByString(orderSearch);
+    }
 }

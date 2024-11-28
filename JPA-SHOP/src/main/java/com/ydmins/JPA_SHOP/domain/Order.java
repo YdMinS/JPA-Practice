@@ -1,5 +1,6 @@
 package com.ydmins.JPA_SHOP.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.ydmins.JPA_SHOP.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.Getter;
@@ -25,6 +26,7 @@ public class Order {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
