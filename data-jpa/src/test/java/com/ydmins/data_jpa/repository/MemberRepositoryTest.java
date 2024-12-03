@@ -1,6 +1,8 @@
 package com.ydmins.data_jpa.repository;
 
+import com.ydmins.data_jpa.dto.MemberDto;
 import com.ydmins.data_jpa.entity.Member;
+import com.ydmins.data_jpa.entity.Team;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class MemberRepositoryTest {
 
     @Autowired MemberRepository memberRepository;
+    @Autowired TeamRepository teamRepository;
 
     @Test
     public void testMember(){
@@ -56,5 +59,20 @@ class MemberRepositoryTest {
 
         long deletedCount = memberRepository.count();
         assertThat(deletedCount).isEqualTo(0);
+    }
+
+    @Test
+    public void findMemberDto(){
+        Team team = new Team("teamA");
+        teamRepository.save(team);
+
+        Member m1 = new Member("member1");
+        m1.setTeam(team);
+        memberRepository.save(m1);
+
+        List<MemberDto> memberDto = memberRepository.findMemberDto();
+        for (MemberDto dto : memberDto) {
+            System.out.println("dto = "+dto);
+        }
     }
 }
