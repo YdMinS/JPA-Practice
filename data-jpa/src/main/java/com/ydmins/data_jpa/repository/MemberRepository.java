@@ -39,4 +39,6 @@ public interface MemberRepository extends JpaRepository<Member, Long>, MemberRep
     List<Member> findEntityGraphByUsername(@Param("username") String username);
 
     List<UsernameOnly> findOnlyByUsername(@Param("username") String username);
+
+    List<UsernameOnlyDto> findOnlyDtoByUsername(@Param("username") String username);
 }
