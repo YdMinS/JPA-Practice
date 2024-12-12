@@ -242,4 +242,34 @@ public class QuerydslBasicTest {
     private BooleanExpression allEq(String usernameCond, Integer ageCond){
         return usernameEq(usernameCond).and(ageEq(ageCond));
     }
+
+    @DisplayName("bulk update를 수행한다.")
+    @Test
+    public void withQueryDSL11(){
+        long count = queryFactory
+                .update(member)
+                .set(member.username, "비회원")
+                .where(member.age.lt(28))
+                .execute();
+
+        em.flush();
+        em.clear();
+
+        long count2 = queryFactory
+                .update(member)
+                .set(member.age, member.age.add(1))
+                .set(member.age, member.age.multiply(1))
+                .execute();
+
+        em.flush();
+        em.clear();
+
+        long count3 = queryFactory
+                .delete(member)
+                .where(member.age.gt(18))
+                .execute();
+
+        em.flush();
+        em.clear();
+    }
 }
