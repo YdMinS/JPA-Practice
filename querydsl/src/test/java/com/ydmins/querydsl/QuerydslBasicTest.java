@@ -1,7 +1,10 @@
 package com.ydmins.querydsl;
 
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.ydmins.querydsl.dto.MemberDto;
+import com.ydmins.querydsl.dto.QMemberDto;
 import com.ydmins.querydsl.entity.Member;
 import com.ydmins.querydsl.entity.Team;
 import jakarta.persistence.EntityManager;
@@ -100,5 +103,86 @@ public class QuerydslBasicTest {
         assertThat(tuple.get(member.age.avg())).isEqualTo(25);
         assertThat(tuple.get(member.age.max())).isEqualTo(40);
         assertThat(tuple.get(member.age.min())).isEqualTo(10);
+    }
+
+    @DisplayName("프로젝션 대상이 하나이다.")
+    @Test
+    public void withQueryDSL4(){
+        List<String> result = queryFactory
+                .select(member.username)
+                .from(member)
+                .fetch();
+        for (String s : result) {
+            System.out.println(s);
+        }
+    }
+
+    @DisplayName("튜플 프로젝션한다.")
+    @Test
+    public void withQueryDSL5(){
+        List<Tuple> result = queryFactory
+                .select(member.username, member.age)
+                .from(member)
+                .fetch();
+        for (Tuple tuple : result) {
+            String username = tuple.get(member.username);
+            int age= tuple.get(member.age);
+            System.out.println("username = " + username);
+            System.out.println("age = " + age);
+        }
+    }
+
+    @DisplayName("DTO 프로젝션한다.")
+    @Test
+    public void withJPA6(){
+        List<MemberDto> result = em.createQuery("select new com.ydmins.querydsl.dto.MemberDto(m.username, m.age) from" +
+                                " Member" +
+                        " m",
+                        MemberDto.class)
+                .getResultList();
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+
+    }
+
+    @DisplayName("Projections.bean으로 DTO 프로젝션한다.")
+    @Test
+    public void withQueryDSL6(){
+        List<MemberDto> result = queryFactory
+                .select(Projections.bean(MemberDto.class,
+                        member.username,
+                        member.age))
+                .from(member)
+                .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+    }
+
+    @DisplayName("Projections.fields로 DTO 프로젝션한다.")
+    @Test
+    public void withQueryDSL7(){
+        List<MemberDto> result = queryFactory
+                .select(Projections.fields(MemberDto.class, member.username, member.age))
+                .from(member)
+                .fetch();
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
+    }
+
+    @DisplayName("QueryProejctdion으로 DTO 프로젝션한다.")
+    @Test
+    public void withQueryDSL8(){
+        List<MemberDto> result = queryFactory
+                .select(new QMemberDto(member.username, member.age))
+                .from(member)
+                .fetch();
+
+        for (MemberDto memberDto : result) {
+            System.out.println("memberDto = " + memberDto);
+        }
     }
 }
