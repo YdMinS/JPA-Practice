@@ -5,6 +5,7 @@ import com.querydsl.core.Tuple;
 import com.querydsl.core.types.Predicate;
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.ydmins.querydsl.dto.MemberDto;
 import com.ydmins.querydsl.dto.QMemberDto;
@@ -271,5 +272,19 @@ public class QuerydslBasicTest {
 
         em.flush();
         em.clear();
+    }
+
+    @DisplayName("SQL Function을 호출한다.")
+    @Test
+    public void withQueryDSL12(){
+        List<String> result = queryFactory
+                .select(Expressions.stringTemplate("function('replace', {0}, {1}, {2})", member.username, "member", "M"))
+                .from(member)
+                .fetch();
+
+        for (String s : result) {
+            System.out.println("s = " + s);
+            
+        }
     }
 }
